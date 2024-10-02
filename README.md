@@ -6,8 +6,13 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 
 ### Loading Spinner
 - Displays "Loading" text with a rotating Pokeball animation using keyframes.
-- Estimated time: 15 minutes
+- Estimated time: 5 minutes
+- Time to finish: 7.5 minutes
 
+### Navbar
+- Displays a 'Navbar' component with the pokeAPI image and other links
+- Estimated time: 10 minutes
+- Time to finish
 
 ## How to run this code
 
