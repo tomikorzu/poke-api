@@ -3,16 +3,16 @@ import pokeImg from "../assets/img/poke-img.png";
 
 const Navbar = () => {
   return (
-    <header>
+    <header className="header">
       <div className="navbar ">
         <img src={pokeImg} alt="" className="logo-img" />
         <nav className="btn-container back-next">
           <button className="back-next-btn" id="back-page">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-left"></i>
           </button>
           <h3 className="div-center current-page-h3">Home</h3>
           <button className="back-next-btn" id="next-page">
-            <i class="fa-solid fa-arrow-right"></i>
+            <i className="fa-solid fa-arrow-right"></i>
           </button>
         </nav>
       </div>

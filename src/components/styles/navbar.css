@@ -1,3 +1,10 @@
+.header {
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; */
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,9 +17,9 @@
   max-width: 135px;
   min-width: 100px;
 }
-.input-search-div{
-    background-color: #27323f;
-    padding: 10px;
+.input-search-div {
+  background-color: #27323f;
+  padding: 10px;
 }
 .input-search {
   padding: 10px;
