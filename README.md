@@ -22,16 +22,17 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 - Estimated time: 5 minutes
 - Time to finish: 3 minutes
 
-### Fetch Pokemon API
-
-- Estimated time: 5 minutes
-- Time to finish: 2.5 minutes
 
 ### Pokemon Card UI / Logic
 
 - Display pokemon cards depending of the content that is in variables.js `pokemons`
 - Estimated time: 30 minutes
 - Time to finish: 45 minutes
+
+### Fetch Pokemon API
+
+- Estimated time: 1 hour
+- Time to finish:
 
 ## How to run this code
 
