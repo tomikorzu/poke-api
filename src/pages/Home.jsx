@@ -22,15 +22,17 @@ const Home = () => {
         <Navbar />
         <main>
           <div className="cards-container">
-            {pokemons.map((pokemon) => {
-              return (
-                <PokemonCard
-                  key={pokemon.name}
-                  name={pokemon.name}
-                  image={pokemon.image}
-                  type={pokemon.type}
-                />
-              );
+            {pokemons.map((pokemon, index) => {
+              if (index <= 24) {
+                return (
+                  <PokemonCard
+                    key={pokemon.name}
+                    name={pokemon.name}
+                    image={pokemon.image}
+                    type={pokemon.type}
+                  />
+                );
+              }
             })}
           </div>
         </main>

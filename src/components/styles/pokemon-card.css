@@ -10,6 +10,8 @@
   border: 1px solid #ffffff60;
   border-radius: 10px;
   gap: 0px;
+  cursor: pointer;
+  transition: all .4s;
 }
 .card-img {
   width: 100%;
@@ -22,10 +24,17 @@
   border-radius: 0 0 10px 10px;
   padding: 10px;
   gap: 5px;
+  transition: all .4s;
 }
 .card-name {
   margin-top: 5px;
 }
 .card-type {
   font-weight: 700;
+}
+
+@media (min-width: 1024px){
+    .pokemon-card:hover > .name-type, .pokemon-card:hover {
+        border-color: #fff;
+    }
 }
