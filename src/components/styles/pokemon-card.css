@@ -1,0 +1,31 @@
+.cards-container{
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+.pokemon-card {
+  width: 150px;
+  border: 1px solid #ffffff60;
+  border-radius: 10px;
+  gap: 0px;
+}
+.card-img {
+  width: 100%;
+  padding: 10px;
+}
+.name-type {
+    border-top: 1px solid #ffffff60;
+  background-color: #52535a;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  padding: 10px;
+  gap: 5px;
+}
+.card-name {
+  margin-top: 5px;
+}
+.card-type {
+  font-weight: 700;
+}
