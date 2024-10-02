@@ -23,6 +23,10 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 - Estimated time: 5 minutes
 - Time to finish: 2.5 minutes
 
+### Pokemon Card UI
+- Estimated time: 10 minutes
+- Time to finish: 
+
 ## How to run this code
 
 - clone the repository
