@@ -1,4 +1,3 @@
-import pokeImg from "../assets/img/poke-img.png";
 import pokeBall from "../assets/img/Pokeball.svg";
 import "./styles/loading.css";
 import { useEffect } from "react";

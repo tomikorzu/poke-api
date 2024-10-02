@@ -69,12 +69,12 @@ button {
   cursor: pointer;
   border: none;
   font-weight: 600;
+  transition: all 0.4s;
 }
 .btn {
   border-radius: 10px;
   padding: 10px;
   background-color: var(--btn-color);
-  transition: all 0.4s;
   color: var(--text-color);
 }
 .btn-container {
@@ -296,7 +296,7 @@ button {
 
 /* mouseover transitions */
 @media (min-width: 1024px) {
-  button:hover {
+  .btn:hover {
     background-color: var(--btn-color-hover);
   }
   .cancel-btn:hover {
