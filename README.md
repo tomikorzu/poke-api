@@ -1,12 +1,13 @@
 # PokeAPI
 
-## Tasks
+A simple app that fetches and displays Pokémon data from PokeAPI. Users can search for Pokémon by name or ID and view their stats, abilities, and types. Includes a loading animation with a rotating Pokeball for a smoother user experience.
 
-### Loading div
+## Features
 
-- Text Loading with an image of a pokeball roating with a keyframe
-- Estimated time: 5min
-- Duration:
+### Loading Spinner
+- Displays "Loading" text with a rotating Pokeball animation using keyframes.
+- Estimated time: 5 minutes
+
 
 ## How to run this code
 
