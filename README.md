@@ -11,8 +11,8 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 
 ### Navbar
 - Displays a 'Navbar' component with the pokeAPI image and other links
-- Estimated time: 15 minutes
-- Time to finish
+- Estimated time: 20 minutes
+- Time to finish: 25 minutes
 
 ## How to run this code
 
