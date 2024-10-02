@@ -10,7 +10,7 @@ const Navbar = () => {
           <button className="back-next-btn" id="back-page">
             <i className="fa-solid fa-arrow-left"></i>
           </button>
-          <h3 className="div-center current-page-h3">Home</h3>
+          <h3 className="div-center current-page-h3">{window.location.pathname }</h3>
           <button className="back-next-btn" id="next-page">
             <i className="fa-solid fa-arrow-right"></i>
           </button>
