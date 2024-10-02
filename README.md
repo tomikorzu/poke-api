@@ -17,7 +17,7 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 ### BackDrop
 - Displays a `Backdrop div` component to apply filters like blur above other elements.
 - Estimated time: 5 minutes
-- Time to finish: 
+- Time to finish: 3 minutes
 
 ## How to run this code
 
