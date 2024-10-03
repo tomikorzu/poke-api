@@ -11,10 +11,38 @@
     />
     <link rel="stylesheet" href="../src/assets/styles/index.css" />
     <link rel="stylesheet" href="../src/components/styles/pokemon-card.css" />
+    <link rel="stylesheet" href="../src/components/styles/navbar.css" />
   </head>
   <body class="fade-in">
     <!-- <Navbar /> -->
     <div class="back-drop">
+      <header class="header">
+        <div class="navbar ">
+          <img
+            src="../src/assets/img/poke-img.png"
+            alt="Logo"
+            class="logo-img"
+          />
+          <nav class="btn-container back-next">
+            <button class="back-next-btn" id="back-page">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h3 class="div-center current-page-h3">Page 1</h3>
+            <button class="back-next-btn" id="next-page">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </nav>
+        </div>
+        <div class="div-center input-search-div">
+          <input
+            type="search"
+            name=""
+            id="input-search"
+            class="input-search"
+            placeholder="Search a pokemon..."
+          />
+        </div>
+      </header>
       <main>
         <div class="cards-container"></div>
       </main>
