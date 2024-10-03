@@ -32,7 +32,7 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 ### Fetch Pokemon API
 
 - Estimated time: 1 hour
-- Time to finish:
+- Time to finish: 1.25 hour
 
 ## How to run this code
 
