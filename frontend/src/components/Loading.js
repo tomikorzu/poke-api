@@ -5,14 +5,24 @@ const Loading = () => {
     <h2 class="loading-title">Loading</h2>
     <img src="../src/assets/img/Pokeball.svg" alt="" class="img-rotate" />
     `;
-    document.body.appendChild(loading);
+
+  document.body.appendChild(loading);
+
   const loadingTitle = loading.querySelector(".loading-title");
   let points = 0;
-  setInterval(() => {
+  let interval;
+
+  interval = setInterval(() => {
     points = (points + 1) % 4;
     loadingTitle.textContent = "Loading" + ".".repeat(points);
   }, 500);
-  return loading
+
+  const removeLoading = () => {
+    clearInterval(interval);
+    loading.remove();
+  };
+
+  return { loading, removeLoading };
 };
 
 export default Loading;

@@ -1,5 +1,5 @@
 import PokemonCard from "../src/components/PokemonCard.js";
-import { getApi } from "../src/utils/api.js";
+import { getApi } from "../src/apis/pokeapi.js";
 import Loading from "../src/components/Loading.js";
 
 const search = document.getElementById("input-search");
@@ -17,9 +17,10 @@ search.addEventListener("input", (event) => {
 });
 
 let offset = 0;
-let limit = 25;
+let limit = 1000;
 
-const loadingElement = Loading();
+const { loadingElement, removeLoading } = Loading();
+
 const fetchData = async () => {
   try {
     const pokemons = await getApi(offset, limit);
@@ -30,7 +31,7 @@ const fetchData = async () => {
     console.error("Error fetching Pokémon data:", error);
     // ErrorPage()
   } finally {
-    loadingElement.remove();
+    removeLoading();
   }
 };
 

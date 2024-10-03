@@ -11,6 +11,7 @@
   border-radius: 10px;
   gap: 0px;
   cursor: pointer;
+  overflow: hidden;
   transition: all .4s;
 }
 .card-img {
@@ -18,16 +19,19 @@
   padding: 10px;
 }
 .name-type {
+  justify-content: start;
     border-top: 1px solid #ffffff60;
   background-color: #52535a;
   width: 100%;
   border-radius: 0 0 10px 10px;
   padding: 10px;
   gap: 5px;
+  height: 50%;
   transition: all .4s;
 }
 .card-name {
   margin-top: 5px;
+  text-align: center;
 }
 .card-type {
   font-weight: 700;
