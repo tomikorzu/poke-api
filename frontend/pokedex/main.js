@@ -39,12 +39,52 @@ const noPokemonText = (found) => {
   }
 };
 
-let offset = 0;
-let limit = 25;
+let currentPage = parseInt(localStorage.getItem("currentPage")) || 1;
+let offset = parseInt(localStorage.getItem("offset")) || 0;
+const limit = 25;
+
+const pokemonsCardsContainer = document.querySelector(".cards-container");
+
+const updateFetch = (offset, limit) => {
+  pokemonsCardsContainer.innerHTML = "";
+  fetchData(offset, limit);
+};
+
+const currentPageIndictator = document.querySelector(".current-page-h3");
+currentPageIndictator.textContent = `Page ${currentPage}`;
+
+const nextPageBtn = document.getElementById("next-page");
+nextPageBtn.addEventListener("click", () => {
+  nextPage();
+});
+
+const nextPage = () => {
+  currentPage += 1;
+  localStorage.setItem("currentPage", currentPage);
+  offset += 25;
+  localStorage.setItem("offset", offset);
+  currentPageIndictator.textContent = `Page ${currentPage}`;
+  updateFetch(offset, limit);
+};
+
+const previousPageBtn = document.getElementById("back-page");
+previousPageBtn.addEventListener("click", () => {
+  if (currentPage !== 1) {
+    previousPage();
+  }
+});
+
+const previousPage = () => {
+  offset -= 25;
+  currentPage -= 1;
+  localStorage.setItem("currentPage", currentPage);
+  localStorage.setItem("offset", offset);
+  currentPageIndictator.textContent = `Page ${currentPage}`;
+  updateFetch(offset, limit);
+};
 
 const { loadingElement, removeLoading } = Loading();
-
-const fetchData = async () => {
+const fetchData = async (offset, limit) => {
   try {
     const pokemons = await getApi(offset, limit);
     pokemons.forEach((pokemon) => {
@@ -58,4 +98,4 @@ const fetchData = async () => {
   }
 };
 
-fetchData();
+fetchData(offset, limit);
