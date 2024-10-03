@@ -42,7 +42,7 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 ### Connect the content API to Home
 
 - Estimated time: 30 minutes
-- Time to finish: 
+- Time to finish: 25 minutes
 
 ## How to run this code
 
