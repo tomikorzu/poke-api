@@ -5,10 +5,10 @@ import { useEffect } from "react";
 const Loading = () => {
   useEffect(() => {
     const loadingTitle = document.querySelector(".loading-title");
-    let dots = 0;
+    let points = 0;
     const interval = setInterval(() => {
-      dots = (dots + 1) % 4;
-      loadingTitle.textContent = "Loading" + ".".repeat(dots);
+      points = (points + 1) % 4;
+      loadingTitle.textContent = "Loading" + ".".repeat(points);
     }, 500);
 
     return () => clearInterval(interval); 
