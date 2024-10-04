@@ -23,8 +23,6 @@ const getApiOfPokemonsData = async (urls, pokemonsInfo) => {
         name: data.name,
         types: data.types.map((type) => type.type.name),
       };
-      console.log(pokemonData.types);
-      
       pokemonsInfo.push(pokemonData);
     } catch (error) {
       console.error("Error in fetching pokemons data:", err);
@@ -32,4 +30,3 @@ const getApiOfPokemonsData = async (urls, pokemonsInfo) => {
   }
 };
 await getApi();
-
