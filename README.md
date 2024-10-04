@@ -58,6 +58,11 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 
 ## How to run this code
 
+### HTML, JS and CSS
+- clone the repository
+- open the index.html file in your browser
+
+### React
 - clone the repository
 - enter to the folder where it is
 - install all the dependences with `npm install`
