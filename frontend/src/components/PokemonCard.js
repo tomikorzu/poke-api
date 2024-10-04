@@ -1,4 +1,4 @@
-const PokemonCard = ({ name, img, type }) => {
+const PokemonCard = ({ name, img, types }) => {
   const cardsContainer = document.querySelector(".cards-container");
   const card = document.createElement("div");
   card.classList.add("div-center");
@@ -6,10 +6,17 @@ const PokemonCard = ({ name, img, type }) => {
   card.innerHTML = `<img src="${img}" alt="${name} image" class="card-img" />
         <div class="name-type div-center">
           <h3 class="card-name">${name}</h3>
-          <p class="card-type">${type}</p>
+
         </div>`;
   setCardTypeColor();
   cardsContainer.appendChild(card);
+  const nameTypeContainer = card.querySelector(".name-type");
+  types.map((type) => {
+    const typeElement = document.createElement("p");
+    typeElement.classList.add("card-type");
+    typeElement.textContent = type;
+    nameTypeContainer.appendChild(typeElement);
+  });
 };
 
 const setCardTypeColor = () => {
