@@ -55,28 +55,40 @@ currentPageIndictator.textContent = `Page ${currentPage}`;
 
 const nextPageBtn = document.getElementById("next-page");
 nextPageBtn.addEventListener("click", () => {
-  nextPage();
+  nextPrevPage("+");
 });
-
-const nextPage = () => {
-  currentPage += 1;
-  offset += 25;
-  currentPageIndictator.textContent = `Page ${currentPage}`;
-  updateFetch(offset, limit);
-};
-
 const previousPageBtn = document.getElementById("back-page");
 previousPageBtn.addEventListener("click", () => {
   if (currentPage !== 1) {
-    previousPage();
+    nextPrevPage("-");
   }
 });
 
-const previousPage = () => {
-  offset -= 25;
-  currentPage -= 1;
-  currentPageIndictator.textContent = `Page ${currentPage}`;
+const nextPrevPage = (operation) => {
+  offset = operation === "+" ? offset + limit : offset - limit;
+  currentPage = operation === "+" ? currentPage + 1 : currentPage - 1;
   updateFetch(offset, limit);
+  updateButtons();
+};
+
+if (currentPage === 1) {
+  previousPageBtn.classList.add("disable");
+}
+
+const updateButtons = () => {
+  currentPageIndictator.textContent = `Page ${currentPage}`;
+
+  if (currentPage === 1) {
+    previousPageBtn.classList.add("disable");
+  } else {
+    previousPageBtn.classList.remove("disable");
+  }
+
+  if (pokemonsCardsContainer.children.length < limit) {
+    nextPageBtn.classList.add("disable");
+  } else {
+    nextPageBtn.classList.remove("disable");
+  }
 };
 
 const { loadingElement, removeLoading } = Loading();
@@ -86,6 +98,11 @@ const fetchData = async (offset, limit) => {
     pokemons.forEach((pokemon) => {
       PokemonCard(pokemon);
     });
+    if (pokemons.length < limit) {
+      nextPageBtn.classList.add("disable");
+    } else {
+      nextPageBtn.classList.remove("disable");
+    }
   } catch (error) {
     console.error("Error fetching Pokémon data:", error);
     // ErrorPage()

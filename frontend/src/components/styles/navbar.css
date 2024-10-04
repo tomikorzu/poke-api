@@ -49,6 +49,11 @@
   margin: 0 5px;
 }
 
+.disable {
+  opacity: .7;
+  pointer-events: none;
+}
+
 @media (min-width: 1024px) {
   .back-next-btn:hover {
     background-color: var(--btn-color-hover);
