@@ -39,8 +39,8 @@ const noPokemonText = (found) => {
   }
 };
 
-let currentPage = parseInt(localStorage.getItem("currentPage")) || 1;
-let offset = parseInt(localStorage.getItem("offset")) || 0;
+let currentPage = 1;
+let offset = 0;
 const limit = 25;
 
 const pokemonsCardsContainer = document.querySelector(".cards-container");
@@ -60,9 +60,7 @@ nextPageBtn.addEventListener("click", () => {
 
 const nextPage = () => {
   currentPage += 1;
-  localStorage.setItem("currentPage", currentPage);
   offset += 25;
-  localStorage.setItem("offset", offset);
   currentPageIndictator.textContent = `Page ${currentPage}`;
   updateFetch(offset, limit);
 };
@@ -77,8 +75,6 @@ previousPageBtn.addEventListener("click", () => {
 const previousPage = () => {
   offset -= 25;
   currentPage -= 1;
-  localStorage.setItem("currentPage", currentPage);
-  localStorage.setItem("offset", offset);
   currentPageIndictator.textContent = `Page ${currentPage}`;
   updateFetch(offset, limit);
 };
