@@ -1,9 +1,11 @@
 import { fetchData } from "../src/apis/pokeapi.js";
 import PokemonCard from "../src/components/PokemonCard.js";
 
-const pokemons = await fetchData(25, 10);
+const pokemons = await fetchData(0, 25);
 console.log(pokemons);
 
-pokemons.map((pokemon) => {
-  return PokemonCard(pokemon.name, pokemon.image, pokemon.types);
-});
+if (pokemons) {
+  pokemons.map((pokemon, index) => {
+    return PokemonCard({name: pokemon.name, img: pokemon.image, types: pokemon.types});
+  });
+}

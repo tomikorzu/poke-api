@@ -4,15 +4,15 @@ export const fetchData = async (offset, limit) => {
   const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`;
   const response = await fetch(url);
   const data = await response.json();
-  let urls = await Promise.all(
-    data.results.map((pokemon) => {
-      return fetchPokemonData(pokemon.url);
-    })
-  );
-  return allPokemons;
+  const urls = data.results.map((pokemon, index) => {
+    return fetchPokemonData(pokemon.url, index);
+  });
+
+  await Promise.all(urls);
+  return allPokemons.sort((a, b) => a.index - b.index);
 };
 
-const fetchPokemonData = async (url) => {
+const fetchPokemonData = async (url, index) => {
   const response = await fetch(url);
   const data = await response.json();
   const newPokemon = {
@@ -27,8 +27,9 @@ const fetchPokemonData = async (url) => {
         base_stat: stat.base_stat,
       };
     }),
+    index,
   };
 
   allPokemons.push(newPokemon);
-  return allPokemons;
+  return newPokemon;
 };
