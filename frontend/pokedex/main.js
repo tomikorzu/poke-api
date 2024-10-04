@@ -8,8 +8,10 @@ let currentPage = 1;
 let currentRequest = 0;
 const pokemonsCardContainer = document.querySelector(".cards-container");
 const currentPageIndicator = document.querySelector(".current-page-h3");
+const searchInput = document.getElementById("input-search");
+const searchButton = document.getElementById("search-btn");
 
-const updateFetch = async (offset, limit) => {
+const updateFetch = async (offset, limit, query = "") => {
   const requestId = ++currentRequest;
 
   pokemonsCardContainer.innerHTML = "";
@@ -21,9 +23,6 @@ const updateFetch = async (offset, limit) => {
     const pokemons = await fetchData(offset, limit);
 
     if (requestId !== currentRequest) {
-      console.log(
-        `Request ${requestId} ignorada, currentRequest es ${currentRequest}`
-      );
       return;
     }
 
@@ -38,14 +37,26 @@ const updateFetch = async (offset, limit) => {
 
     await Promise.all(imgPromises);
 
-    if (pokemons) {
-      pokemons.map((pokemon) => {
+    let filteredPokemons = pokemons;
+
+    if (query) {
+      filteredPokemons = pokemons.filter((pokemon) =>
+        pokemon.name.includes(query)
+      );
+    }
+
+    if (filteredPokemons.length) {
+      filteredPokemons.forEach((pokemon) => {
         PokemonCard({
           name: pokemon.name,
           img: pokemon.image,
           types: pokemon.types,
         });
       });
+    } else{
+      const noResults = document.createElement("h3");
+      noResults.textContent = "No results found";
+      pokemonsCardContainer.appendChild(noResults);
     }
   } catch (error) {
     console.error("There was an error:", error);
@@ -53,8 +64,18 @@ const updateFetch = async (offset, limit) => {
     removeLoading();
   }
 
-  updateButtons();
+  updateButtons(filteredPokemons.length);
 };
+
+const searchPokemons = () => {
+  const query = searchInput.value.trim();
+  offset = 0;
+  currentPage = 1;
+  currentRequest++;
+  updateFetch(offset, limit, query);
+};
+
+searchButton.addEventListener("click", searchPokemons);
 
 currentPageIndicator.textContent = `Page ${currentPage}`;
 
@@ -81,20 +102,13 @@ if (currentPage === 1) {
   prevPageBtn.classList.add("disable");
 }
 
-const updateButtons = () => {
+const updateButtons = (totalFilteredPokemons) => {
   currentPageIndicator.textContent = `Page ${currentPage}`;
 
-  if (currentPage === 1) {
-    prevPageBtn.classList.add("disable");
-  } else {
-    prevPageBtn.classList.remove("disable");
-  }
+  prevPageBtn.classList.toggle("disable", currentPage === 1);
 
-  if (pokemonsCardContainer.children.length < limit) {
-    nextPageBtn.classList.add("disable");
-  } else {
-    nextPageBtn.classList.remove("disable");
-  }
+  const totalPages = Math.ceil(totalFilteredPokemons / limit);
+  nextPageBtn.classList.toggle("disable", currentPage >= totalPages);
 };
 
 updateFetch(offset, limit);
