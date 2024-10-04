@@ -27,6 +27,17 @@ const updateFetch = async (offset, limit) => {
       return;
     }
 
+    const imgPromises = pokemons.map((pokemon) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = pokemon.image;
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
+
+    await Promise.all(imgPromises);
+
     if (pokemons) {
       pokemons.map((pokemon) => {
         PokemonCard({
@@ -38,7 +49,7 @@ const updateFetch = async (offset, limit) => {
     }
   } catch (error) {
     console.error("There was an error:", error);
-  } finally{
+  } finally {
     removeLoading();
   }
 
