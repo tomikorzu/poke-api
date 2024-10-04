@@ -33,3 +33,7 @@ const fetchPokemonData = async (url, index) => {
   allPokemons.push(newPokemon);
   return newPokemon;
 };
+
+export const clearAllPokemons = () => {
+  allPokemons.length = 0;
+};
