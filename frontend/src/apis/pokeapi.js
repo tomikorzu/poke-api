@@ -18,8 +18,18 @@ const getApiOfPokemonsData = async (urls, pokemonsInfo) => {
     try {
       const response = await fetch(api);
       const data = await response.json();
+      let img;
+      if (data.sprites.other.home.front_default) {
+        img = data.sprites.other.home.front_default;
+      } else if (data.sprites.other["official-artwork"].front_default) {
+        img = data.sprites.other["official-artwork"].front_default;
+      } else if (data.sprites.front_default) {
+        img = data.sprites.front_default;
+      } else {
+        img = "../src/assets/img/Pokeball.svg";
+      }
       const pokemonData = {
-        img: data.sprites.other.home.front_default,
+        img: img,
         name: data.name,
         types: data.types.map((type) => type.type.name),
       };
