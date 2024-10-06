@@ -43,8 +43,11 @@ export const fetchPokemonByName = async (name) => {
   try {
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const response = await fetch(url);
+    if (!response.ok) {
+      return null;
+    }
     const data = await response.json();
-    const pokemon = {
+    return {
       name: data.name,
       id: data.id,
       image:
@@ -52,15 +55,11 @@ export const fetchPokemonByName = async (name) => {
         "../src/assets/img/Pokeball.svg",
       types: data.types.map((type) => type.type.name),
       abilities: data.abilities.map((ability) => ability.ability.name),
-      stats: data.stats.map((stat) => {
-        return {
-          name: stat.stat.name,
-          base_stat: stat.base_stat,
-        };
-      }),
-      index,
+      stats: data.stats.map((stat) => ({
+        name: stat.stat.name,
+        base_stat: stat.base_stat,
+      })),
     };
-    return pokemon;
   } catch (err) {
     console.error("There was an error:", err);
     return null;
