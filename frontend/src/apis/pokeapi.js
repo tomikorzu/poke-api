@@ -18,7 +18,8 @@ const fetchPokemonData = async (url, index) => {
   const newPokemon = {
     name: data.name,
     id: data.id,
-    image: data.sprites.other.home.front_default,
+    image:
+      data.sprites.other.home.front_default || "../src/assets/img/Pokeball.svg",
     types: data.types.map((type) => type.type.name),
     abilities: data.abilities.map((ability) => ability.ability.name),
     stats: data.stats.map((stat) => {

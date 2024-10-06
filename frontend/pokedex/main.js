@@ -57,7 +57,6 @@ const updateFetch = async (offset, limit) => {
   updateButtons();
 };
 
-
 const searchPokemons = () => {
   const query = searchInput.value.trim();
   const pokemonCards = document.querySelectorAll(".pokemon-card");
@@ -65,8 +64,8 @@ const searchPokemons = () => {
 
   pokemonCards.forEach((pokemonCard) => {
     const pokemonName = pokemonCard
-    .querySelector(".card-name")
-    .textContent.toLowerCase();
+      .querySelector(".card-name")
+      .textContent.toLowerCase();
     if (pokemonName.includes(query)) {
       pokemonCard.style.display = "block";
       found = true;
