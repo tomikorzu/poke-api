@@ -1,29 +1,83 @@
+import { fetchData, clearAllPokemons } from "../src/apis/pokeapi.js";
 import PokemonCard from "../src/components/PokemonCard.js";
-import { getApi } from "../src/apis/pokeapi.js";
 import Loading from "../src/components/Loading.js";
 
-const search = document.getElementById("input-search");
-search.addEventListener("input", (event) => {
-  const found = searchPokemon(event);
-  noPokemonText(found);
-});
+let offset = 0;
+let limit = 25;
+let currentPage = 1;
+let currentRequest = 0;
+let pokemonsList = [];
 
-const searchPokemon = (event) => {
-  const { value } = event.target;
+const pokemonsCardContainer = document.querySelector(".cards-container");
+const currentPageIndicator = document.querySelector(".current-page-h3");
+const searchInput = document.getElementById("input-search");
+const searchButton = document.getElementById("search-btn");
+
+const updateFetch = async (offset, limit) => {
+  const requestId = ++currentRequest;
+
+  pokemonsCardContainer.innerHTML = "";
+  clearAllPokemons();
+
+  const { loading, removeLoading } = Loading();
+
+  try {
+    const pokemons = await fetchData(offset, limit);
+
+    if (requestId !== currentRequest) {
+      return;
+    }
+
+    pokemonsList = pokemons;
+
+    const imgPromises = pokemons.map((pokemon) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = pokemon.image;
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
+
+    await Promise.all(imgPromises);
+
+    pokemons.forEach((pokemon) => {
+      PokemonCard({
+        name: pokemon.name,
+        img: pokemon.image,
+        types: pokemon.types,
+      });
+    });
+  } catch (error) {
+    console.error("There was an error:", error);
+  } finally {
+    removeLoading();
+  }
+
+  updateButtons();
+};
+
+const searchPokemons = () => {
+  const query = searchInput.value.trim();
   const pokemonCards = document.querySelectorAll(".pokemon-card");
   let found = false;
 
   pokemonCards.forEach((pokemonCard) => {
-    const pokemonName = pokemonCard.querySelector(".card-name").textContent;
-    if (pokemonName.includes(value)) {
+    const pokemonName = pokemonCard
+      .querySelector(".card-name")
+      .textContent.toLowerCase();
+    if (pokemonName.includes(query)) {
       pokemonCard.style.display = "block";
       found = true;
     } else {
       pokemonCard.style.display = "none";
     }
   });
-  return found;
+
+  noPokemonText(found);
 };
+
+searchButton.addEventListener("click", searchPokemons);
 
 const noPokemonText = (found) => {
   const noPokemon = document.querySelector(".no-pokemon");
@@ -32,83 +86,57 @@ const noPokemonText = (found) => {
       const noPokemonMessage = document.createElement("h3");
       noPokemonMessage.textContent = "No Pokémon found";
       noPokemonMessage.className = "no-pokemon fade-in";
-      document.querySelector(".cards-container").appendChild(noPokemonMessage);
+      pokemonsCardContainer.appendChild(noPokemonMessage);
     }
   } else if (noPokemon) {
     noPokemon.remove();
   }
 };
 
-let currentPage = 1;
-let offset = 0;
-const limit = 25;
-
-const pokemonsCardsContainer = document.querySelector(".cards-container");
-
-const updateFetch = (offset, limit) => {
-  pokemonsCardsContainer.innerHTML = "";
-  fetchData(offset, limit);
-};
-
-const currentPageIndictator = document.querySelector(".current-page-h3");
-currentPageIndictator.textContent = `Page ${currentPage}`;
+currentPageIndicator.textContent = `Page ${currentPage}`;
 
 const nextPageBtn = document.getElementById("next-page");
+const prevPageBtn = document.getElementById("back-page");
+
 nextPageBtn.addEventListener("click", () => {
   nextPrevPage("+");
 });
-const previousPageBtn = document.getElementById("back-page");
-previousPageBtn.addEventListener("click", () => {
+
+prevPageBtn.addEventListener("click", () => {
   if (currentPage !== 1) {
     nextPrevPage("-");
   }
 });
 
 const nextPrevPage = (operation) => {
-  offset = operation === "+" ? offset + limit : offset - limit;
-  currentPage = operation === "+" ? currentPage + 1 : currentPage - 1;
+  if (operation === "+") {
+    currentPage += 1;
+    offset += limit;
+  } else {
+    if (currentPage > 1) {
+      currentPage--;
+      offset -= limit;
+    }
+  }
   updateFetch(offset, limit);
-  updateButtons();
 };
 
 if (currentPage === 1) {
-  previousPageBtn.classList.add("disable");
+  prevPageBtn.classList.add("disable");
 }
 
 const updateButtons = () => {
-  currentPageIndictator.textContent = `Page ${currentPage}`;
-
-  if (currentPage === 1) {
-    previousPageBtn.classList.add("disable");
-  } else {
-    previousPageBtn.classList.remove("disable");
-  }
-
-  if (pokemonsCardsContainer.children.length < limit) {
+  currentPageIndicator.textContent = `Page ${currentPage}`;
+  if (pokemonsList.length < limit) {
     nextPageBtn.classList.add("disable");
   } else {
     nextPageBtn.classList.remove("disable");
   }
-};
-
-const { loadingElement, removeLoading } = Loading();
-const fetchData = async (offset, limit) => {
-  try {
-    const pokemons = await getApi(offset, limit);
-    pokemons.forEach((pokemon) => {
-      PokemonCard(pokemon);
-    });
-    if (pokemons.length < limit) {
-      nextPageBtn.classList.add("disable");
-    } else {
-      nextPageBtn.classList.remove("disable");
-    }
-  } catch (error) {
-    console.error("Error fetching Pokémon data:", error);
-    // ErrorPage()
-  } finally {
-    removeLoading();
+  if (currentPage === 1) {
+    prevPageBtn.classList.add("disable");
+  } else {
+    prevPageBtn.classList.remove("disable");
   }
 };
 
-fetchData(offset, limit);
+updateFetch(offset, limit);

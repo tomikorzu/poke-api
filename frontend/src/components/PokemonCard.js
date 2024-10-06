@@ -11,18 +11,20 @@ const PokemonCard = ({ name, img, types }) => {
   cardsContainer.appendChild(card);
   
   const nameTypeContainer = card.querySelector(".name-type");
-  types.map((type) => {
-    const typeElement = document.createElement("p");
+  types.map((type) => addTypes(type, nameTypeContainer));
+
+  setCardTypeColor(card);
+};
+
+const addTypes = (type, nameTypeContainer) => {
+  const typeElement = document.createElement("p");
     typeElement.classList.add("card-type");
     typeElement.textContent = type;
     nameTypeContainer.appendChild(typeElement);
-  });
+}
 
-  setCardTypeColor();
-};
-
-const setCardTypeColor = () => {
-  const typeElement = document.querySelectorAll(".card-type");
+const setCardTypeColor = (card) => {
+  const typeElement = card.querySelectorAll(".card-type");
   typeElement.forEach((element) => {
     if (element) {
       switch (element.textContent) {

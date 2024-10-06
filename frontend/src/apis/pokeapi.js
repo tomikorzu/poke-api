@@ -1,42 +1,40 @@
-export const getApi = async (offset, limit) => {
+export const allPokemons = [];
+
+export const fetchData = async (offset, limit) => {
   const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`;
-  const pokemonsInfo = [];
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    const urls = data.results.map((pokemon) => pokemon.url);
-    await getApiOfPokemonsData(urls, pokemonsInfo);
-    return pokemonsInfo;
-  } catch (error) {
-    console.error("Error in fetching pokemons url:", error);
-    return;
-  }
+  const response = await fetch(url);
+  const data = await response.json();
+  const urls = data.results.map((pokemon, index) => {
+    return fetchPokemonData(pokemon.url, index);
+  });
+
+  await Promise.all(urls);
+  return allPokemons.sort((a, b) => a.index - b.index);
 };
 
-const getApiOfPokemonsData = async (urls, pokemonsInfo) => {
-  for (const api of urls) {
-    try {
-      const response = await fetch(api);
-      const data = await response.json();
-      let img;
-      if (data.sprites.other.home.front_default) {
-        img = data.sprites.other.home.front_default;
-      } else if (data.sprites.other["official-artwork"].front_default) {
-        img = data.sprites.other["official-artwork"].front_default;
-      } else if (data.sprites.front_default) {
-        img = data.sprites.front_default;
-      } else {
-        img = "../src/assets/img/Pokeball.svg";
-      }
-      const pokemonData = {
-        img: img,
-        name: data.name,
-        types: data.types.map((type) => type.type.name),
+const fetchPokemonData = async (url, index) => {
+  const response = await fetch(url);
+  const data = await response.json();
+  const newPokemon = {
+    name: data.name,
+    id: data.id,
+    image:
+      data.sprites.other.home.front_default || "../src/assets/img/Pokeball.svg",
+    types: data.types.map((type) => type.type.name),
+    abilities: data.abilities.map((ability) => ability.ability.name),
+    stats: data.stats.map((stat) => {
+      return {
+        name: stat.stat.name,
+        base_stat: stat.base_stat,
       };
-      pokemonsInfo.push(pokemonData);
-    } catch (error) {
-      console.error("Error in fetching pokemons data:", err);
-    }
-  }
+    }),
+    index,
+  };
+
+  allPokemons.push(newPokemon);
+  return newPokemon;
 };
-await getApi();
+
+export const clearAllPokemons = () => {
+  allPokemons.length = 0;
+};

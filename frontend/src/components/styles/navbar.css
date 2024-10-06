@@ -18,8 +18,10 @@
   min-width: 100px;
 }
 .input-search-div {
-  background-color: #27323f;
+  gap: 15px;
+  flex-direction: row;
   padding: 10px;
+  background-color: #27323f;
 }
 .input-search {
   padding: 10px;
@@ -30,7 +32,7 @@
   color: var(--text-color);
   border: 1px #ffffff60 solid;
   font-size: 0.875em;
-  width: 250px;
+  width: 200px;
 }
 .input-search::placeholder {
   color: var(--input-placeholder-color);
@@ -50,7 +52,7 @@
 }
 
 .disable {
-  opacity: .7;
+  opacity: 0.7;
   pointer-events: none;
 }
 
