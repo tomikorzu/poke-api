@@ -72,16 +72,16 @@ const searchPokemons = async () => {
   const pokemon = await fetchPokemonByName(query);
 
   if (pokemon) {
-    renederPokemons([pokemon]);
+    renderPokemons([pokemon]);
   } else {
-    renederPokemons([]);
+    renderPokemons([]);
     noPokemonText(false);
   }
 };
 
 searchButton.addEventListener("click", searchPokemons);
 
-const renederPokemons = (pokemons) => {
+const renderPokemons = (pokemons) => {
   pokemonsCardContainer.innerHTML = "";
   const start = (currentPage - 1) * limit;
   const end = currentPage * limit;
@@ -144,7 +144,6 @@ nextPageBtn.addEventListener("click", () => {
 
 prevPageBtn.addEventListener("click", () => {
   if (currentPage !== 1) {
-    currentPage -= 1;
     if (searchInput.value.trim() === "") {
       nextPrevPage("-");
     } else {
@@ -158,10 +157,8 @@ const nextPrevPage = (operation) => {
     currentPage += 1;
     offset += limit;
   } else {
-    if (currentPage > 1) {
-      currentPage--;
-      offset -= limit;
-    }
+    currentPage--;
+    offset -= limit;
   }
   updateFetch(offset, limit);
 };

@@ -1,0 +1,13 @@
+Gracias por mostrarme los archivos. Ahora veo que ya tienes la lógica para la paginación y la búsqueda básica, pero lo que te falta es la funcionalidad de buscar por nombre usando un fetch con un límite mayor, filtrando los Pokémon que incluyan el texto del input y mostrando solo 25 resultados a la vez.
+
+Para implementar lo que necesitas, tendrás que:
+
+Actualizar la función de búsqueda para que haga un fetch con un limit de 10000, en lugar de buscar solo en las tarjetas ya renderizadas.
+Implementar la paginación en los resultados de búsqueda: limitar los resultados de búsqueda a 25 por página, habilitando la navegación entre páginas de resultados.
+¿Te gustaría que ahora te dé una explicación paso a paso o prefieres que directamente te pase el código de las modificaciones?
+
+
+
+
+
+
