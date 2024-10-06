@@ -127,7 +127,16 @@ if (currentPage === 1) {
 
 const updateButtons = () => {
   currentPageIndicator.textContent = `Page ${currentPage}`;
-  prevPageBtn.classList.toggle("disable", currentPage === 1);
+  if (pokemonsList.length < limit) {
+    nextPageBtn.classList.add("disable");
+  } else {
+    nextPageBtn.classList.remove("disable");
+  }
+  if (currentPage === 1) {
+    prevPageBtn.classList.add("disable");
+  } else {
+    prevPageBtn.classList.remove("disable");
+  }
 };
 
 updateFetch(offset, limit);
