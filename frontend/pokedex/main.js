@@ -1,4 +1,4 @@
-import { fetchData, clearAllPokemons } from "../src/apis/pokeapi.js";
+import { fetchData, clearAllPokemons, fetchPokemonByName } from "../src/apis/pokeapi.js";
 import PokemonCard from "../src/components/PokemonCard.js";
 import Loading from "../src/components/Loading.js";
 
