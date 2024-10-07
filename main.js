@@ -56,6 +56,21 @@ const updateFetch = async (offset, limit) => {
     console.error("There was an error:", error);
   } finally {
     removeLoading();
+    const pokemonsCards = document.querySelectorAll(".pokemon-card");
+
+    pokemonsCards.forEach((card, index) => {
+      card.addEventListener("click", () => {
+        let name = card.querySelector(".card-name");
+        localStorage.setItem("pokemon", name.textContent);
+        
+        setTimeout(() => {
+          document.querySelector("body").classList.add("fade-out");
+          setTimeout(() => {
+            window.location.href = `./pokemon/`;
+          }, 500);
+        });
+      });
+    });
   }
 
   updateButtons();
@@ -65,7 +80,7 @@ const searchPokemons = async () => {
   const query = searchInput.value.trim().toLowerCase();
 
   if (query === "") {
-    document.querySelector('body').classList.add('fade-out')
+    document.querySelector("body").classList.add("fade-out");
     setTimeout(() => {
       window.location.reload();
     }, 500);

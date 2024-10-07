@@ -52,3 +52,21 @@ export const fetchPokemonsSearch = async (query) => {
 
   return namesThatIncludesQuery;
 };
+
+export const fetchPokemon = async (name) => {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  const data = await response.json();
+
+  return {
+    name: data.name,
+    id: data.id,
+    image:
+      data.sprites.other.home.front_default || "./src/assets/img/Pokeball.svg",
+    types: data.types.map((type) => type.type.name),
+    abilities: data.abilities.map((ability) => ability.ability.name),
+    stats: data.stats.map((stat) => ({
+      name: stat.stat.name,
+      base_stat: stat.base_stat
+    }))
+  }
+};
