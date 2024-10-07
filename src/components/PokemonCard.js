@@ -14,7 +14,7 @@ const PokemonCard = ({ name, img, types }) => {
   const typeList = card.querySelector(".type-list");
   types.map((type) => addTypes(type, typeList));
 
-  setCardTypeColor(card);
+  setCardTypeColor();
 };
 
 const addTypes = (type, typeList) => {
@@ -24,8 +24,8 @@ const addTypes = (type, typeList) => {
   typeList.appendChild(typeElement);
 };
 
-const setCardTypeColor = (card) => {
-  const typeElement = card.querySelectorAll(".card-type");
+export const setCardTypeColor = () => {
+  const typeElement = document.querySelectorAll(".card-type");
   typeElement.forEach((element) => {
     if (element) {
       switch (element.textContent) {
