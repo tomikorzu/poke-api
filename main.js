@@ -2,9 +2,9 @@ import {
   fetchData,
   clearAllPokemons,
   fetchPokemonsSearch,
-} from "../src/apis/pokeapi.js";
-import PokemonCard from "../src/components/PokemonCard.js";
-import Loading from "../src/components/Loading.js";
+} from "./src/apis/pokeapi.js";
+import PokemonCard from "./src/components/PokemonCard.js";
+import Loading from "./src/components/Loading.js";
 
 let offset = 0;
 let limit = 25;
@@ -145,7 +145,7 @@ async function fetchEachPokemonSearch(pokemon) {
     name: data.name,
     id: data.id,
     image:
-      data.sprites.other.home.front_default || "../src/assets/img/Pokeball.svg",
+      data.sprites.other.home.front_default || "./src/assets/img/Pokeball.svg",
     types: data.types.map((type) => type.type.name),
     abilities: data.abilities.map((ability) => ability.ability.name),
     stats: data.stats.map((stat) => ({

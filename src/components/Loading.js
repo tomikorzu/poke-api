@@ -3,7 +3,7 @@ const Loading = () => {
   loading.className = "main-center loading";
   loading.innerHTML = `
     <h2 class="loading-title">Loading</h2>
-    <img src="../src/assets/img/Pokeball.svg" alt="" class="img-rotate" />
+    <img src="./src/assets/img/Pokeball.svg" alt="" class="img-rotate" />
     `;
 
   document.body.appendChild(loading);
