@@ -17,7 +17,7 @@
   --input-color: #363742;
   --input-placeholder-color: #999;
   --menu-color: #3e4044;
-  --despegable-btn-color: #555;
+  --despegable-btn-color: #444654;
   --alert-text-color: #fa5e55;
   --alert-text-color-hover: #f2f2f2;
   --alert-bg-color: #212830;
@@ -28,7 +28,7 @@
   --navbar-btn-text-color: #e2e2e2;
   --card-bg-color: #333;
   --card-text-color: #e2e2e2;
-  --navbar-desplegable-btn: #8098c5;
+  --navbar-desplegable-btn: #57596d;
   --navbar-items-color: #000;
   --navbar-toggle-lines-color: #111;
 }
@@ -82,7 +82,6 @@ button {
   flex-direction: row;
   gap: 10px;
 }
-
 
 /* Forms */
 .form {
@@ -167,14 +166,18 @@ button {
   transform: translate(-50%, -50%);
 }
 .desplegable-button {
+  top: 15px;
+  left: 15px;
   position: fixed;
   border-radius: 100%;
-  padding: 10px;
+  padding: 12.5px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.4s;
   background-color: var(--despegable-btn-color);
+  color: var(--text-color);
+  font-size: 1.25em;
 }
 
 /* Only read menus */
@@ -311,5 +314,8 @@ button {
   .already-account-btn:hover {
     background-color: transparent;
     color: var(--text-color);
+  }
+  .desplegable-button:hover {
+    background-color: var(--navbar-desplegable-btn);
   }
 }

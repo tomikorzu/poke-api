@@ -4,17 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../src/assets/img/Pokeball.svg"
+    />
     <link rel="stylesheet" href="./pokemon.css" />
     <link rel="stylesheet" href="../src//assets/styles/index.css" />
   </head>
   <body class="fade-in">
-    <h1 class="pokemon-name"></h1>
-    <img src="" alt="" class="pokemon-image">
-    <div>
-        <h3>Stadistics</h3>
-        <ul class="stats-list"></ul>
+    <button class="desplegable-button" id="home-btn"><i class="fa-solid fa-house"></i></button>
+    <div class="pokemon">
+      <h1 class="pokemon-name"></h1>
+      <div class="pokemon-data">
+        <img src="" alt="" class="pokemon-image" />
+        <div class="pokemon-data-text">
+          <div class="abilities-stats">
+            <div class="stats">
+              <h3>Stadistics</h3>
+              <ul class="stats-list"></ul>
+            </div>
+            <div class="pokemon-abilities">
+              <h3>Abilities</h3>
+              <ul class="abilities-list"></ul>
+            </div>
+          </div>
+          <div class="types">
+            <h3>Types</h3>
+            <ul class="types-list"></ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul class="types-list"></ul>
   </body>
 
   <script type="module" src="./pokemon.js"></script>

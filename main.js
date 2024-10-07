@@ -17,6 +17,24 @@ const currentPageIndicator = document.querySelector(".current-page-h3");
 const searchInput = document.getElementById("input-search");
 const searchButton = document.getElementById("search-btn");
 
+const seePokemonInfo = () => {
+  const pokemonsCards = document.querySelectorAll(".pokemon-card");
+
+  pokemonsCards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      let name = card.querySelector(".card-name");
+      localStorage.setItem("pokemon", name.textContent);
+
+      setTimeout(() => {
+        document.querySelector("body").classList.add("fade-out");
+        setTimeout(() => {
+          window.location.href = `./pokemon/`;
+        }, 500);
+      });
+    });
+  });
+};
+
 const updateFetch = async (offset, limit) => {
   const requestId = ++currentRequest;
 
@@ -56,21 +74,7 @@ const updateFetch = async (offset, limit) => {
     console.error("There was an error:", error);
   } finally {
     removeLoading();
-    const pokemonsCards = document.querySelectorAll(".pokemon-card");
-
-    pokemonsCards.forEach((card, index) => {
-      card.addEventListener("click", () => {
-        let name = card.querySelector(".card-name");
-        localStorage.setItem("pokemon", name.textContent);
-        
-        setTimeout(() => {
-          document.querySelector("body").classList.add("fade-out");
-          setTimeout(() => {
-            window.location.href = `./pokemon/`;
-          }, 500);
-        });
-      });
-    });
+    seePokemonInfo();
   }
 
   updateButtons();
@@ -110,6 +114,7 @@ const searchPokemons = async () => {
     console.error("Error fetching searchPokemons", error);
   } finally {
     removeLoading();
+    seePokemonInfo();
   }
 };
 

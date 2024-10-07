@@ -1,0 +1,77 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.pokemon {
+  background-color: var(--menu-color);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 40px;
+  flex-wrap: wrap;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+}
+.pokemon-data {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.pokemon-image {
+  width: 250px;
+}
+.pokemon-data-text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.stats {
+}
+.types {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.abilities-stats{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.card-type {
+  font-weight: 700;
+  padding: 7.5px;
+  border-radius: 10px;
+  color: #f5f5f5;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.types {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.types h3 {
+  text-align: start;
+  width: 100%;
+}
+.types-list {
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 100%;
+}
