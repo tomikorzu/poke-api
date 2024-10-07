@@ -1,7 +1,6 @@
 import {
   fetchData,
   clearAllPokemons,
-  fetchPokemonByName,
   fetchPokemonsSearch,
 } from "../src/apis/pokeapi.js";
 import PokemonCard from "../src/components/PokemonCard.js";
@@ -96,10 +95,17 @@ const searchPokemons = async () => {
   }
 };
 
-searchButton.addEventListener("click", searchPokemons);
+searchButton.addEventListener("click", () => {
+  currentPage = 1;
+  searchPokemons();
+});
 
 const renderPokemons = async (pokemons) => {
   pokemonsCardContainer.innerHTML = "";
+
+  const startIndex = (currentPage - 1) * limit;
+  const endIndex = startIndex + limit;
+
   const pokemonsTrue = pokemons
     .filter((name) => {
       return name.name;
@@ -108,7 +114,7 @@ const renderPokemons = async (pokemons) => {
       return name.name;
     });
 
-  for (const pokemon of pokemonsTrue.slice(0, 25)) {
+  for (const pokemon of pokemonsTrue.slice(startIndex, endIndex)) {
     const eachPokemon = await fetchEachPokemonSearch(pokemon);
 
     await new Promise((resolve) => {
@@ -189,6 +195,7 @@ prevPageBtn.addEventListener("click", () => {
     if (searchInput.value.trim() === "") {
       nextPrevPage("-");
     } else {
+      currentPage -= 1;
       searchPokemons();
     }
   }
