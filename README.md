@@ -49,6 +49,12 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 - Estimated time: 30 minutes
 - Time to finish: 1 hour
 
+### Pokemon page
+
+- Display a `pokemon page` to show the pokemon details
+- Estimated time: 1 hour
+- Time to finish: 45 minutes
+
 ## How to run this code
 
 - clone the repository
