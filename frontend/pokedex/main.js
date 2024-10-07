@@ -1,4 +1,8 @@
-import { fetchData, clearAllPokemons } from "../src/apis/pokeapi.js";
+import {
+  fetchData,
+  clearAllPokemons,
+  fetchPokemonsSearch,
+} from "../src/apis/pokeapi.js";
 import PokemonCard from "../src/components/PokemonCard.js";
 import Loading from "../src/components/Loading.js";
 
@@ -57,40 +61,119 @@ const updateFetch = async (offset, limit) => {
   updateButtons();
 };
 
-const searchPokemons = () => {
+const searchPokemons = async () => {
   const query = searchInput.value.trim();
-  const pokemonCards = document.querySelectorAll(".pokemon-card");
-  let found = false;
 
-  pokemonCards.forEach((pokemonCard) => {
-    const pokemonName = pokemonCard
-      .querySelector(".card-name")
-      .textContent.toLowerCase();
-    if (pokemonName.includes(query)) {
-      pokemonCard.style.display = "block";
-      found = true;
+  if (query === "") {
+    updateFetch(offset, limit);
+    return;
+  }
+  const { loading, removeLoading } = Loading();
+  try {
+    const pokemon = await fetchPokemonsSearch(query);
+
+    const imgPromises = pokemon.map((poke) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = poke.image;
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
+
+    await Promise.all(imgPromises);
+
+    if (pokemon.length !== 0) {
+      await renderPokemons(pokemon);
     } else {
-      pokemonCard.style.display = "none";
+      noPokemonText();
     }
-  });
-
-  noPokemonText(found);
+  } catch (error) {
+    console.error("Error fetching searchPokemons", error);
+  } finally {
+    removeLoading();
+  }
 };
 
-searchButton.addEventListener("click", searchPokemons);
+searchButton.addEventListener("click", () => {
+  currentPage = 1;
+  searchPokemons();
+});
 
-const noPokemonText = (found) => {
-  const noPokemon = document.querySelector(".no-pokemon");
-  if (!found) {
-    if (!noPokemon) {
-      const noPokemonMessage = document.createElement("h3");
-      noPokemonMessage.textContent = "No Pokémon found";
-      noPokemonMessage.className = "no-pokemon fade-in";
-      pokemonsCardContainer.appendChild(noPokemonMessage);
-    }
-  } else if (noPokemon) {
-    noPokemon.remove();
+const renderPokemons = async (pokemons) => {
+  pokemonsCardContainer.innerHTML = "";
+
+  const startIndex = (currentPage - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  const pokemonsTrue = pokemons
+    .filter((name) => {
+      return name.name;
+    })
+    .map((name) => {
+      return name.name;
+    });
+
+  for (const pokemon of pokemonsTrue.slice(startIndex, endIndex)) {
+    const eachPokemon = await fetchEachPokemonSearch(pokemon);
+
+    await new Promise((resolve) => {
+      const img = new Image();
+      img.src = eachPokemon.image;
+      img.onload = resolve;
+      img.onerror = resolve;
+    });
+
+    PokemonCard({
+      name: eachPokemon.name,
+      img: eachPokemon.image,
+      types: eachPokemon.types,
+    });
   }
+
+  updateButtonsForSearch(pokemons.length);
+};
+
+async function fetchEachPokemonSearch(pokemon) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+  const data = await response.json();
+
+  return {
+    name: data.name,
+    id: data.id,
+    image:
+      data.sprites.other.home.front_default || "../src/assets/img/Pokeball.svg",
+    types: data.types.map((type) => type.type.name),
+    abilities: data.abilities.map((ability) => ability.ability.name),
+    stats: data.stats.map((stat) => ({
+      name: stat.stat.name,
+      base_stat: stat.base_stat,
+    })),
+  };
+}
+
+const updateButtonsForSearch = (totalResults) => {
+  currentPageIndicator.textContent = `Page ${currentPage}`;
+
+  if (currentPage * limit >= totalResults) {
+    nextPageBtn.classList.add("disable");
+  } else {
+    nextPageBtn.classList.remove("disable");
+  }
+
+  if (currentPage === 1) {
+    prevPageBtn.classList.add("disable");
+  } else {
+    prevPageBtn.classList.remove("disable");
+  }
+};
+
+const noPokemonText = () => {
+  pokemonsCardContainer.innerHTML = "";
+  const noPokemonMessage = document.createElement("h3");
+  noPokemonMessage.textContent = "No Pokémon found";
+  noPokemonMessage.className = "no-pokemon fade-in";
+  pokemonsCardContainer.appendChild(noPokemonMessage);
 };
 
 currentPageIndicator.textContent = `Page ${currentPage}`;
@@ -99,12 +182,22 @@ const nextPageBtn = document.getElementById("next-page");
 const prevPageBtn = document.getElementById("back-page");
 
 nextPageBtn.addEventListener("click", () => {
-  nextPrevPage("+");
+  if (searchInput.value.trim() === "") {
+    nextPrevPage("+");
+  } else {
+    currentPage += 1;
+    searchPokemons();
+  }
 });
 
 prevPageBtn.addEventListener("click", () => {
   if (currentPage !== 1) {
-    nextPrevPage("-");
+    if (searchInput.value.trim() === "") {
+      nextPrevPage("-");
+    } else {
+      currentPage -= 1;
+      searchPokemons();
+    }
   }
 });
 
@@ -113,10 +206,8 @@ const nextPrevPage = (operation) => {
     currentPage += 1;
     offset += limit;
   } else {
-    if (currentPage > 1) {
-      currentPage--;
-      offset -= limit;
-    }
+    currentPage--;
+    offset -= limit;
   }
   updateFetch(offset, limit);
 };
