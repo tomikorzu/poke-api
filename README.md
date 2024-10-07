@@ -16,13 +16,6 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 - Estimated time: 20 minutes
 - Time to finish: 25 minutes
 
-### BackDrop
-
-- Displays a `Backdrop div` component to apply filters like blur above other elements.
-- Estimated time: 5 minutes
-- Time to finish: 3 minutes
-
-
 ### Pokemon Card UI / Logic
 
 - Display pokemon cards depending of the content that is in variables.js `pokemons`
@@ -36,19 +29,19 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 
 ### Pass all since react to only javascript
 
-- Estimated time: 1 hour (Thanks!)
+- Estimated time: 1 hour
 - Time to finish: 45 minutes
 
 ### Connect the content API to Home
 
 - Estimated time: 30 minutes
-- Time to finish: 25 minutes
+- Time to finish: 45 minutes
 
 ### Search pokemon filter input
 
 - Display a `search input to filter` the pokemons
 - Estimated time: 30 minutes
-- Time to finish: 15 minutes
+- Time to finish: 1.5 hours
 
 ### Page system
 
@@ -59,10 +52,12 @@ A simple app that fetches and displays Pokémon data from PokeAPI. Users can sea
 ## How to run this code
 
 ### HTML, JS and CSS
+
 - clone the repository
 - open the index.html file in your browser
 
 ### React
+
 - clone the repository
 - enter to the folder where it is
 - install all the dependences with `npm install`
