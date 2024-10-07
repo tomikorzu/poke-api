@@ -4,7 +4,7 @@ import { redirectPage } from "../src/utils/mainFunctions.js";
 
 const currentPokemon = localStorage.getItem("pokemon");
 
-if (!currentPokemon) {
+if (currentPokemon === null) {
   document.querySelector("body").innerHTML = "";
   redirectPage("/", "fade-out", 500);
 }
