@@ -6,22 +6,23 @@ const PokemonCard = ({ name, img, types }) => {
   card.innerHTML = `<img src="${img}" alt="${name} image" class="card-img" />
         <div class="name-type div-center">
           <h3 class="card-name">${name}</h3>
+          <ul class="type-list"></ul>
         </div>`;
-  
+
   cardsContainer.appendChild(card);
-  
-  const nameTypeContainer = card.querySelector(".name-type");
-  types.map((type) => addTypes(type, nameTypeContainer));
+
+  const typeList = card.querySelector(".type-list");
+  types.map((type) => addTypes(type, typeList));
 
   setCardTypeColor(card);
 };
 
-const addTypes = (type, nameTypeContainer) => {
+const addTypes = (type, typeList) => {
   const typeElement = document.createElement("p");
-    typeElement.classList.add("card-type");
-    typeElement.textContent = type;
-    nameTypeContainer.appendChild(typeElement);
-}
+  typeElement.classList.add("card-type");
+  typeElement.textContent = type;
+  typeList.appendChild(typeElement);
+};
 
 const setCardTypeColor = (card) => {
   const typeElement = card.querySelectorAll(".card-type");
@@ -29,58 +30,58 @@ const setCardTypeColor = (card) => {
     if (element) {
       switch (element.textContent) {
         case "fire":
-          element.style.color = "#f52f2f";
+          element.style.backgroundColor = "#d9534f"; // Rojo fuego
           break;
         case "water":
-          element.style.color = "#2f71f5";
+          element.style.backgroundColor = "#4682b4"; // Azul agua
           break;
         case "grass":
-          element.style.color = "#26ea26";
+          element.style.backgroundColor = "#32cd32"; // Verde hierba
           break;
         case "bug":
-          element.style.color = "#ecb30c";
+          element.style.backgroundColor = "#b8860b"; // Marrón insecto
           break;
         case "normal":
-          element.style.color = "#A8A77A";
+          element.style.backgroundColor = "#8b8b7a"; // Marrón normal
           break;
         case "electric":
-          element.style.color = "#F7D02C";
+          element.style.backgroundColor = "#e1ad01"; // Amarillo eléctrico
           break;
         case "ice":
-          element.style.color = "#96D9D6";
+          element.style.backgroundColor = "#70a6d2"; // Azul hielo
           break;
         case "fighting":
-          element.style.color = "#C22E28";
+          element.style.backgroundColor = "#a52a2a"; // Rojo pelea
           break;
         case "poison":
-          element.style.color = "#A33EA1";
+          element.style.backgroundColor = "#8b008b"; // Púrpura veneno
           break;
         case "ground":
-          element.style.color = "#E2BF65";
+          element.style.backgroundColor = "#d2691e"; // Marrón tierra
           break;
         case "flying":
-          element.style.color = "#A98FF3";
+          element.style.backgroundColor = "#7b68ee"; // Púrpura volador
           break;
         case "psychic":
-          element.style.color = "#F95587";
+          element.style.backgroundColor = "#db7093"; // Rosa psíquico
           break;
         case "rock":
-          element.style.color = "#B6A136";
+          element.style.backgroundColor = "#cd853f"; // Marrón roca
           break;
         case "ghost":
-          element.style.color = "#735797";
+          element.style.backgroundColor = "#6a5acd"; // Morado fantasma
           break;
         case "dragon":
-          element.style.color = "#6F35FC";
+          element.style.backgroundColor = "#7f00ff"; // Púrpura dragón
           break;
         case "dark":
-          element.style.color = "#705746";
+          element.style.backgroundColor = "#4f4f4f"; // Gris oscuro
           break;
         case "steel":
-          element.style.color = "#B7B7CE";
+          element.style.backgroundColor = "#7d858c"; // Gris acero
           break;
         case "fairy":
-          element.style.color = "#D685AD";
+          element.style.backgroundColor = "#c58d85"; // Rosa hada
           break;
       }
     }
