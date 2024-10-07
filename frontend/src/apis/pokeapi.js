@@ -39,19 +39,22 @@ export const clearAllPokemons = () => {
   allPokemons.length = 0;
 };
 
-const fetchPokemonsSearch = async (query) => {
+export const fetchPokemonsSearch = async (query) => {
   const response = await fetch(
-    "https://pokeapi.co/api/v2/pokemon?offset=0&limit=5"
+    "https://pokeapi.co/api/v2/pokemon?offset=0&limit=10000"
   );
   const data = await response.json();
+  
+  
   const names = data.results;
-  const namesThatIncludesQuery = names.map((name) => {
+  const namesThatIncludesQuery = names.filter((name) => {
     return name.name.includes(query);
   });
+
   return namesThatIncludesQuery;
 };
 
-fetchPokemonsSearch("a").then((response) => console.log(response));
+fetchPokemonsSearch("ar").then((response) => console.log(response));
 
 export const fetchPokemonByName = async (name) => {
   try {
