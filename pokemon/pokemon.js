@@ -22,11 +22,9 @@ homeBtn.addEventListener("click", () => redirectPage("/", "fade-out", 500));
 
 const updateFetch = async () => {
   const pokemon = await fetchPokemon(currentPokemon);
-  console.log(pokemon);
 
-  const card = document.querySelector(".pokemon");
   pokemonName.textContent = pokemon.name;
-  pokemonImage.src = `${pokemon.image}`;
+  pokemonImage.src = `${pokemon.image}` || "../src/assets/img/Pokeball.svg";
 
   pokemon.stats.forEach((stat) => {
     const statElement = document.createElement("li");
