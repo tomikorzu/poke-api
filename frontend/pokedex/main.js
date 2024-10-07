@@ -69,20 +69,36 @@ const searchPokemons = async () => {
     updateFetch(offset, limit);
     return;
   }
+  const { loading, removeLoading } = Loading();
+  try {
+    const pokemon = await fetchPokemonsSearch(query);
 
-  const pokemon = await fetchPokemonsSearch(query);
+    const imgPromises = pokemon.map((poke) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = poke.image;
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
 
-  if (pokemon.length !== 0) {
-    renderPokemons(pokemon);
-  } else {
-    console.log("hola");
-    noPokemonText(false);
+    await Promise.all(imgPromises);
+
+    if (pokemon.length !== 0) {
+      await renderPokemons(pokemon);
+    } else {
+      noPokemonText();
+    }
+  } catch (error) {
+    console.error("Error fetching searchPokemons", error);
+  } finally {
+    removeLoading();
   }
 };
 
 searchButton.addEventListener("click", searchPokemons);
 
-const renderPokemons = (pokemons) => {
+const renderPokemons = async (pokemons) => {
   pokemonsCardContainer.innerHTML = "";
   const pokemonsTrue = pokemons
     .filter((name) => {
@@ -92,15 +108,22 @@ const renderPokemons = (pokemons) => {
       return name.name;
     });
 
-  pokemonsTrue.forEach(async (pokemon) => {
+  for (const pokemon of pokemonsTrue.slice(0, 25)) {
     const eachPokemon = await fetchEachPokemonSearch(pokemon);
+
+    await new Promise((resolve) => {
+      const img = new Image();
+      img.src = eachPokemon.image;
+      img.onload = resolve;
+      img.onerror = resolve;
+    });
 
     PokemonCard({
       name: eachPokemon.name,
       img: eachPokemon.image,
       types: eachPokemon.types,
     });
-  });
+  }
 
   updateButtonsForSearch(pokemons.length);
 };
