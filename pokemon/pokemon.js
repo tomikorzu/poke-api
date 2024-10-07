@@ -4,6 +4,10 @@ import { redirectPage } from "../src/utils/mainFunctions.js";
 
 const currentPokemon = localStorage.getItem("pokemon");
 
+if (!currentPokemon) {
+  redirectPage("/", "fade-out", 500);
+}
+
 document.title = currentPokemon[0].toUpperCase() + currentPokemon.slice(1);
 
 const homeBtn = document.getElementById("home-btn");
@@ -13,7 +17,7 @@ const statsList = document.querySelector(".stats-list");
 const typesList = document.querySelector(".types-list");
 const abilitiesList = document.querySelector(".abilities-list");
 
-homeBtn.addEventListener("click", () => redirectPage('/', 'fade-out', 500));
+homeBtn.addEventListener("click", () => redirectPage("/", "fade-out", 500));
 
 const updateFetch = async () => {
   const pokemon = await fetchPokemon(currentPokemon);

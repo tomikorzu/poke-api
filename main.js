@@ -29,6 +29,9 @@ const seePokemonInfo = () => {
         document.querySelector("body").classList.add("fade-out");
         setTimeout(() => {
           window.location.href = `./pokemon/`;
+          setTimeout(() => {
+            document.querySelector("body").classList.remove("fade-out");
+          }, 100);
         }, 500);
       });
     });
