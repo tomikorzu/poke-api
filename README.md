@@ -1,4 +1,4 @@
-# PokeAPI
+# ![Poké Ball](./src/assets/img/Pokeball.svg) PokeAPI
 
 A simple app that fetches and displays Pokémon data from PokeAPI. Users can search for Pokémon by name or ID and view their stats, abilities, and types. Includes a loading animation with a rotating Pokeball for a smoother user experience.
 
