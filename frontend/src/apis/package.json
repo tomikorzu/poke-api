@@ -4,7 +4,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node main.js",
+    "start": "node pokeapi.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
