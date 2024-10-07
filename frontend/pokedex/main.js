@@ -62,10 +62,13 @@ const updateFetch = async (offset, limit) => {
 };
 
 const searchPokemons = async () => {
-  const query = searchInput.value.trim();
+  const query = searchInput.value.trim().toLowerCase();
 
   if (query === "") {
-    updateFetch(offset, limit);
+    document.querySelector('body').classList.add('fade-out')
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
     return;
   }
   const { loading, removeLoading } = Loading();
@@ -182,7 +185,7 @@ const nextPageBtn = document.getElementById("next-page");
 const prevPageBtn = document.getElementById("back-page");
 
 nextPageBtn.addEventListener("click", () => {
-  if (searchInput.value.trim() === "") {
+  if (searchInput.value.trim().toLowerCase() === "") {
     nextPrevPage("+");
   } else {
     currentPage += 1;
@@ -192,7 +195,7 @@ nextPageBtn.addEventListener("click", () => {
 
 prevPageBtn.addEventListener("click", () => {
   if (currentPage !== 1) {
-    if (searchInput.value.trim() === "") {
+    if (searchInput.value.trim().toLowerCase() === "") {
       nextPrevPage("-");
     } else {
       currentPage -= 1;
